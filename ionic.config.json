@@ -1,0 +1,7 @@
+{
+  "name": "BoutiqueHistory",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
