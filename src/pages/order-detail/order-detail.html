@@ -1,0 +1,27 @@
+<!--
+  Generated template for the OrderDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>OrderDetail</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <h6>Dealer Name: {{record.dealerName}}</h6>
+  <h6>Product: {{record.product}}</h6>
+  <h6>Dealer Price: {{record.dealerPrice}}</h6>
+  <h6>DC: {{record.dc}}</h6>
+  <h6>Sold Price: {{record.soldPrice}}</h6>
+  <h6>My Profit: {{record.soldPrice - record.dealerPrice - record.dc}}</h6>
+  <h6>Client Name: {{record.clientName}}</h6>
+  <h6>Client City: {{record.clientCity}}</h6>
+
+</ion-content>

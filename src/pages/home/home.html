@@ -1,17 +1,71 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Add Record</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  <ion-grid>
+    <ion-item>
+      <ion-label floating>Dealer Name</ion-label>
+      <ion-input type="text" [(ngModel)]="dealerName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Product Description</ion-label>
+      <ion-input type="text" [(ngModel)]="productDescription"></ion-input>
+    </ion-item>
+
+    <ion-row>
+      <ion-col no-padding>
+        <ion-item>
+          <ion-label floating>D Price</ion-label>
+          <ion-input type="text" [(ngModel)]="dealerPrice"></ion-input>
+        </ion-item>
+
+      </ion-col>
+      <ion-col no-padding>
+        <ion-item>
+          <ion-label floating>DC</ion-label>
+          <ion-input type="text" [(ngModel)]="deliveryCharges"></ion-input>
+        </ion-item>
+
+      </ion-col>
+      <ion-col no-padding>
+        <ion-item>
+          <ion-label floating>Sold Price</ion-label>
+          <ion-input type="text" [(ngModel)]="soldPrice"></ion-input>
+        </ion-item>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row align-items-baseline>
+      <h5 margin-left margin-top>Net Profit:</h5>
+      <p margin-left>{{soldPrice * 1 - dealerPrice * 1 - deliveryCharges * 1}}</p>
+    </ion-row>
+
+    <ion-row>
+      <ion-col no-padding>
+        <ion-item>
+          <ion-label floating>Client Name</ion-label>
+          <ion-input type="text" [(ngModel)]="clientName"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col no-padding>
+        <ion-item>
+          <ion-label floating>Client City</ion-label>
+          <ion-input type="text" [(ngModel)]="clientLocation"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <button style="margin-top: 32px" ion-button full margin-left (click)="onAdd()">Add</button>
+    </ion-row>
+
+
+
+
+  </ion-grid>
 </ion-content>

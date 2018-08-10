@@ -1,11 +1,32 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      About
+      Order History
     </ion-title>
+    <ion-buttons end>
+
+      <button ion-button transparent icon-only (click)="refreshList()">
+        <ion-icon name="refresh"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
+  <ion-list *ngIf="records">
+    <button ion-item *ngFor="let record of records" (click)="onItemClick(record)">
+      <ion-row align-items-center justify-content-between>
+
+        <h6>{{record.dealerName}}</h6>
+        <ion-buttons end align-self-end>
+          <button ion-button transparent icon-only (click)="deleteRecord(record);$event.stopPropagation();">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-buttons>
+
+      </ion-row>
+      <p>{{record.product}}</p>
+    </button>
+  </ion-list>
 </ion-content>
