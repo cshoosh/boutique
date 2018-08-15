@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import * as firebase from 'firebase'
+import {HttpClient} from "@angular/common/http";
 import DocumentReference = firebase.firestore.DocumentReference;
 
 /*
@@ -12,7 +13,7 @@ import DocumentReference = firebase.firestore.DocumentReference;
 export class ServicesProvider {
 
 
-  constructor() {
+  constructor(public http: HttpClient) {
     console.log('Hello ServicesProvider Provider');
     let config = {
       apiKey: "AIzaSyBq0bNHjQMGZTGisPxaLuI7gXRmh8nnTw0",
@@ -25,6 +26,15 @@ export class ServicesProvider {
 
     firebase.initializeApp(config);
 
+  }
+
+  getCities() {
+    return this.http.get(`http://cod.callcourier.com.pk/API/CallCourier/GetCityList`)
+  }
+
+  createBooking(booking: INewBooking) {
+    let query = `loginId=KHI-01582&ConsigneeName=${booking.name}&ConsigneeRefNo=${10001}&ConsigneeCellNo=${booking.number}&Address=${booking.address}&Origin=KARACHI&DestCityId=${booking.city.CityID}&ServiceTypeId=7&Pcs=1&Weight=1&Description=${booking.description}&SelOrigin=Domestic&CodAmount=${booking.amount}&SpecialHandling=false&MyBoxId=1&Holiday=false&remarks=${''}&ShipperName=THE PINK BOUTIQUE-KARACHI&ShipperCellNo=03352509191&ShipperArea=533&ShipperCity=2&ShipperAddress=D 84, Block 4, Saadi Town, Near Safoorah, Karachi&ShipperLandLineNo=03352509191&ShipperEmail=ammara4shah@gmail.com`;
+    return this.http.get(`http://cod.callcourier.com.pk/api/CallCourier/SaveBooking?${encodeURI(query)}`)
   }
 
   addRecord(record: IRecord): Promise<DocumentReference> {
@@ -73,6 +83,15 @@ export class ServicesProvider {
 
   }
 
+}
+
+export interface INewBooking {
+  name: string,
+  description: string,
+  number: string,
+  amount: string,
+  address: string,
+  city: any
 }
 
 export interface IRecord {
