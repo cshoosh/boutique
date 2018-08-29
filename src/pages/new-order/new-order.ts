@@ -32,10 +32,17 @@ export class NewOrderPage {
               private toast: ToastController) {
 
 
-    storage.get('cities').then(value => {
-      if (value)
-        this.cities = JSON.parse(value);
-      else
+    storage.get('data').then(value => {
+
+      if (value) {
+        let json = JSON.parse(value);
+        if (Date.now() - json.expiry > 1219200000) {
+          this._fetchCities();
+        } else {
+          this.cities = json.data;
+          console.log(this.cities);
+        }
+      } else
         this._fetchCities();
     }, reason => {
       this._fetchCities()
@@ -48,7 +55,7 @@ export class NewOrderPage {
 
     this.service.getCities().subscribe((value) => {
       this.cities = value;
-      this.storage.set('cities', JSON.stringify(value));
+      this.storage.set('data', JSON.stringify({expiry: Date.now(), data: value}));
       load.dismissAll();
     }, error1 => {
       load.dismissAll();
@@ -59,6 +66,7 @@ export class NewOrderPage {
     if (this.address && this.amount && this.description && this.name && this.number && this.selectedCity
       && this.number.length == 11
     ) {
+
       let load = this.loader.create({content: "Loading..."});
       load.present();
       this.service.createBooking({
@@ -70,6 +78,14 @@ export class NewOrderPage {
         city: this.selectedCity
       }).subscribe(value => {
         this.toast.create({message: "Order Created Successfully"}).present();
+
+        this.address = '';
+        this.amount = '';
+        this.description = '';
+        this.name = '';
+        this.number = '';
+        this.selectedCity = undefined;
+
         load.dismissAll();
       }, error1 => {
         load.dismissAll();
